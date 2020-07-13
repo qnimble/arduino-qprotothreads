@@ -119,12 +119,7 @@
 #ifndef __LC_H__
 #define __LC_H__
 
-
-#ifdef LC_INCLUDE
-#include LC_INCLUDE
-#else
-#include "lc-switch.h"
-#endif /* LC_INCLUDE */
+#include "lc-addrlabels.h"
 
 #endif /* __LC_H__ */
 
