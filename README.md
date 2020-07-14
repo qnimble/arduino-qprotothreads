@@ -1,4 +1,4 @@
-Protothreads are extremely lightweight stackless threads designed for
+*Protothreads* are extremely lightweight stackless threads designed for
 severely memory constrained systems. 
 
 Protothreads provides a blocking context on top of an event-driven
@@ -24,18 +24,16 @@ with support from Oliver Schmidt <ol.sc@web.de>. Arduino port by
 Ben Artin <ben@artins.org>
 
 More information and new versions can be found at the protothreads
-homepage:
-		     http://www.sics.se/~adam/pt/
+homepage: http://www.sics.se/~adam/pt/
 
-The Arduino port lives at
-        https://gitlab.com/airbornemint/arduino-protothreads
+The Arduino port lives at: https://gitlab.com/airbornemint/arduino-protothreads
 
 Documentation can be found in the doc/ subdirectory.
 
 Two Aruino example programs are included to illustrate the use of protothreads:
 
-   Blink    Blinks the on-board LED. 
-   Button   Turns the on-board LED on an off with a push button.
+ * Blink: Blinks the on-board LED. 
+ * Button: Turns the on-board LED on an off with a push button.
 
 Both examples are based on stock Arduino sample code, modified to work with 
 protothreads.
