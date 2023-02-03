@@ -1,51 +1,53 @@
 /*
-  Blink
-
-  Turns an LED on for one second, then off for one second, repeatedly. Rewritten with Protothreads.
-
-  Most Arduinos have an on-board LED you can control. On the UNO, MEGA and ZERO
-  it is attached to digital pin 13, on MKR1000 on pin 6. LED_BUILTIN is set to
-  the correct LED pin independent of which board is used.
-  If you want to know what pin the on-board LED is connected to on your Arduino
-  model, check the Technical Specs of your board at:
-  https://www.arduino.cc/en/Main/Products
-
-  modified 8 May 2014
-  by Scott Fitzgerald
-  modified 2 Sep 2016
-  by Arturo Guadalupi
-  modified 8 Sep 2016
-  by Colby Newman
-  modified 2020-Jul-13
-  by Ben Artin
+  Example for using protothreads for toggling LED's at different rates.
 */
 
 #include "protothreads.h"
 
-pt ptBlink;
-int blinkThread(struct pt* pt) {
+// Each protothread needs its own object to store its state information
+// We will create two such objects: ptBlinkRed and ptBlinkBlue
+pt ptBlinkRed;
+pt ptBlinkBlue;
+
+//The first thread will blink the LED red, toggling every 450ms.
+PT_THREAD(blinkRed(struct pt* pt)) {
   PT_BEGIN(pt);
 
   // Loop forever
-  for(;;) {
-    digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-    PT_SLEEP(pt, 1000);
-    digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-    PT_SLEEP(pt, 1000);
+  while(true) {
+    setLEDRed(true);
+    PT_SLEEP(pt, 450);
+    setLEDRed(false);
+    PT_SLEEP(pt, 450);
   }
 
   PT_END(pt);
 }
 
-// the setup function runs once when you press reset or power the board
-void setup() {
-  PT_INIT(&ptBlink);
+//The second thread will blink the LED blue, toggling every 500ms.
+PT_THREAD(blinkBlue(struct pt* pt)) {
+  PT_BEGIN(pt);
 
-  // initialize digital pin LED_BUILTIN as an output.
-  pinMode(LED_BUILTIN, OUTPUT);
+  // Loop forever
+  while(true) {
+    setLEDBlue(true);
+    PT_SLEEP(pt, 500);
+    setLEDBlue(false);
+    PT_SLEEP(pt, 500);
+  }
+
+  PT_END(pt);
 }
 
-// the loop function runs over and over again forever
+// once on startup, initialize the threads.
+void setup() {
+  PT_INIT(&ptBlinkRed);
+  PT_INIT(&ptBlinkBlue);
+}
+
+// the main loop runs forever and runs the threads as needed
 void loop() {
-  PT_SCHEDULE(blinkThread(&ptBlink));
+  // Run the two threads, wi
+  PT_SCHEDULE(blinkRed(&ptBlinkRed));
+  PT_SCHEDULE(blinkBlue(&ptBlinkBlue));
 }
