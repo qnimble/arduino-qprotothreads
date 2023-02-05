@@ -87,6 +87,17 @@ struct pt {
  */
 
 /**
+ * Instantiate, statically, the PT object, create a pointer to it and run PT_BEGIN on it
+ *
+ * This macro is used to instatiate a PT object inside the function that uses it.
+ *
+ * \param name_args The name of the pointer to the PT object.
+ *
+ * \hideinitializer
+ */
+
+#define PT_FUNC_START(pt_name) static pt pt_local_static_object = {0}; pt* pt_name = &pt_local_static_object; PT_BEGIN(pt_name)
+/**
  * Declaration of a protothread.
  *
  * This macro is used to declare a protothread. All protothreads must
@@ -124,8 +135,12 @@ struct pt {
  *
  * \hideinitializer
  */
+
+#define PT_FUNC_END(pt) PT_END(pt)
 #define PT_END(pt) LC_END((pt)->lc); PT_YIELD_FLAG = 0; \
                    PT_INIT(pt); return PT_ENDED; }
+
+
 
 /** @} */
 
