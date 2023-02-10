@@ -137,9 +137,7 @@ struct pt {
  */
 
 #define PT_FUNC_END(pt) PT_END(pt)
-#define PT_END(pt) LC_END((pt)->lc); PT_YIELD_FLAG = 0; \
-                   PT_INIT(pt); return PT_ENDED; }
-
+#define PT_END(pt) LC_END((pt)->lc); PT_YIELD_FLAG = 0; LC_SET((pt)->lc); return PT_ENDED;}
 
 
 /** @} */
@@ -260,7 +258,7 @@ struct pt {
  */
 #define PT_EXIT(pt)				\
   do {						\
-    PT_INIT(pt);				\
+    LC_SET((pt)->lc);                           \
     return PT_EXITED;			\
   } while(0)
 
