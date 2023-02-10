@@ -96,7 +96,11 @@ struct pt {
  * \hideinitializer
  */
 
-#define PT_FUNC_START(pt_name) static pt pt_local_static_object = {0}; pt* pt_name = &pt_local_static_object; PT_BEGIN(pt_name)
+#define PT_FUNC_START(pt_name)                        \
+    static pt pt_local_static_object = {0};           \
+    pt* pt_name = &pt_local_static_object;            \
+    PT_BEGIN(pt_name)
+
 /**
  * Declaration of a protothread.
  *
@@ -123,6 +127,7 @@ struct pt {
  *
  * \hideinitializer
  */
+#define PT_FUNC_START_EXT(pt) PT_BEGIN(pt)
 #define PT_BEGIN(pt) {  __attribute__((unused)) char PT_YIELD_FLAG = 1; LC_RESUME((pt)->lc)
 
 /**
@@ -242,7 +247,6 @@ struct pt {
 #define PT_RESTART(pt)				\
   do {						\
     PT_INIT(pt);				\
-    return PT_WAITING;			\
   } while(0)
 
 /**
