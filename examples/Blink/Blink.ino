@@ -1,5 +1,6 @@
 /*
   Example for using protothreads for toggling LED's at different rates.
+  More details on using threads at https://qnimble.com/Quarto/Examples/Threads
 */
 
 #include "protothreads.h"

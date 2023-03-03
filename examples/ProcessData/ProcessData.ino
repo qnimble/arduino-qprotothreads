@@ -2,7 +2,8 @@
 
 /* This example has one thread toggle a the LED every 500ms while a second
    thread does some number crunching. When the number-crunching thread is
-   finished, the LED changes from blinking red to blinking green.
+   finished, the LED changes from blinking red to blinking green. More
+   details at https://qnimble.com/Quarto/Examples/Threads
 */
 
 PT_THREAD(blinkLED(void)) {

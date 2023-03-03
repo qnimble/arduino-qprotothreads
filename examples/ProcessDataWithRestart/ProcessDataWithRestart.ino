@@ -3,7 +3,8 @@
 /* This example has one thread toggle a the LED every 500ms while a second
    thread does some number crunching. When the number-crunching thread is
    finished, the LED changes from blinking red to blinking green. Additionally,
-   a third thread restarts the processing thread 10s after it finishes
+   a third thread restarts the processing thread 10s after it finishes. More
+   details at https://qnimble.com/Quarto/Examples/Threads
 */
 pt ptProcessData = {0};
 pt* ptProcess = &ptProcessData;
