@@ -113,7 +113,7 @@ struct pt {
  * \hideinitializer
  */
 #define PT_THREAD(name_args) char name_args
-
+typedef char ptFunc;
 /**
  * Declare the start of a protothread inside the C function
  * implementing the protothread.
@@ -143,7 +143,7 @@ struct pt {
 
 #define PT_FUNC_END(pt) PT_END(pt)
 #define PT_END(pt) LC_END((pt)->lc); PT_YIELD_FLAG = 0; LC_SET((pt)->lc); return PT_ENDED;}
-
+#define PT_FUNC_RESTART(pt)  PT_INIT(pt);return PT_YIELDED
 
 /** @} */
 
